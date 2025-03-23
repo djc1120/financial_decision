@@ -11,13 +11,15 @@ function App() {
     <>
       <label className="text-white">Monthly mortgage</label>
       <input 
+        type="number"
         className="text-white w-full p-3 mb-4"
         value={monthlyMortgage}
         onChange={(e) => setMonthlyMortgage(e.target.value)}
       />
 
       <label className="text-white">Monthly rent</label>
-      <input 
+      <input
+      type="number"
         className="text-white w-full p-3 mb-4" 
         value={monthlyRent}
         onChange={(e) => setMonthlyRent(e.target.value)}

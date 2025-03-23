@@ -3,7 +3,7 @@ import { useState } from 'react';
 function CalculationModule({ rate, setRate, monthlyExtra }) {
   const [principal, setPrincipal] = useState(10000);
   const [years, setYears] = useState(30);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState('?');
 
   const calculateCompoundInterest = () => {
     const P = parseFloat(principal);
@@ -11,7 +11,8 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
     const n = parseInt(years);
 
     const S = P * ((1 + r) ** n - 1) / r;
-    setTotal(S.toFixed(0));
+    const formattedS = "$" + S.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    setTotal(formattedS);
   };
 
   return (
@@ -64,7 +65,7 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
           Calculate
         </button>
         
-        <h3 className="text-center text-lg font-semibold text-white mt-4">Estimated return: <span className="text-pink-600">${total}</span></h3>
+        <h3 className="text-center text-lg font-semibold text-white mt-4">Estimated return: <span className="text-pink-600">{total}</span></h3>
       </div>
     </div>
   );
