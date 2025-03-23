@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 function CalculationModule({ rate, setRate, monthlyExtra }) {
-  const [principal, setPrincipal] = useState(10000);
+  // const [principal, setPrincipal] = useState(10000);
   const [years, setYears] = useState(30);
   const [total, setTotal] = useState('?');
 
   const calculateCompoundInterest = () => {
-    const P = parseFloat(principal);
+    const P = parseFloat(monthlyExtra) * 12;
     const r = parseFloat(rate) / 100;
     const n = parseInt(years);
 
@@ -39,7 +39,7 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
           className="w-full p-3 mb-3 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
         />
 
-        <label className="block text-white font-medium">
+        {/* <label className="block text-white font-medium">
           Principal ($)
         </label>
         <input
@@ -47,7 +47,7 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
           value={principal}
           onChange={(e) => setPrincipal(e.target.value)}
           className="w-full p-3 mb-3 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-        />
+        /> */}
 
         <label className="block text-white font-medium">
           Number of years
