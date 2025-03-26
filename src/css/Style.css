@@ -1,4 +1,4 @@
-
+@import "tailwindcss";
 
 .container {
   display: inline-block; /* Makes the container wrap its content */
@@ -34,6 +34,7 @@ input {
   display: block;
   border-radius: 8px;
   background-color: #676767; /* Default to white background */
+  /* font-size: small; */
 }
 
 /* Read-only version */
