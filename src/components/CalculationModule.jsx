@@ -29,7 +29,8 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
         <input
           type="text"
           value={`${monthlyExtra.toFixed(2)} X 12 = ${monthlyExtra.toFixed(2) * 12}`}
-          className="read-only w-full p-3 mb-4 bg-gray-700 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="read-only w-full p-3 mb-4 bg-gray-700 text-gray-400 rounded-lg focus:outline-none"
+          disabled
         />
 
         <label className="block text-white font-medium">
@@ -42,32 +43,29 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
           className="w-full p-3 mb-3 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
         />
 
-        {/* <label className="block text-white font-medium">
-          Principal ($)
-        </label>
-        <input
-          type="number"
-          value={principal}
-          onChange={(e) => setPrincipal(e.target.value)}
-          className="w-full p-3 mb-3 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-        /> */}
-
         <label className="block text-white font-medium">
           Number of years
         </label>
         <input
           type="number"
           value={years}
-          className="w-full p-3 mb-3 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 read-only"
+          className="w-full p-3 mb-3 border border-gray-600 bg-gray-700 text-gray-400 rounded-lg read-only focus:outline-none"
+          disabled
         />
 
         <button 
           onClick={calculateCompoundInterest} 
-          className="mt-4 mb-6 w-full bg-gradient-to-r from-pink-500 to-yellow-500 text-white rounded-lg text-lg font-bold shadow-md hover:opacity-90 transition-all">
+          className={`mt-4 bg-neutral-300 mt-2 w-full text-black py-2 px-4 rounded-md size-12
+            ${monthlyExtra > 0
+              ? 'animate-bounce ..'
+              : ''}`
+            }>
           Calculate
         </button>
+
+
         
-        <h3 className="text-center text-lg font-semibold text-white mt-4">Estimated return: <span className="text-pink-600">{total}</span></h3>
+        <h3 className="text-center text-lg font-semibold text-white mt-4">Estimated return: <span className="text-white">{total}</span></h3>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import CalculationModule from '../components/CalculationModule.jsx';
-import ProgressTracker from '../components/ProgressTracker';
+import ProgressTracker from '../components/ProgressTracker.jsx';
+import { Link } from "react-router-dom";
 
 function Investing() {
 
@@ -16,8 +17,16 @@ function Investing() {
   return (
     <div>
       <ProgressTracker currentStep={2} />
+
+        
       
       <div className="w-[400px] mx-auto mt-8 p-6 bg-black rounded-xl shadow-md text-white">
+      <Link
+        to='/'
+        className={`ml-2 mr-4 text-sm 'text-gray-500' hover:underline flex pb-4 !text-white`}
+        >
+            &lt; Back
+        </Link>
       <label className="block font-medium mb-2">Monthly Mortgage</label>
       <input
         type="number"

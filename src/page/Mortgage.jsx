@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import ProgressTracker from '../components/ProgressTracker';
+import ProgressTracker from '../components/ProgressTracker.jsx';
+
 
 export default function MortgageCalculatorForm() {
 
@@ -133,6 +134,9 @@ export default function MortgageCalculatorForm() {
             </button>
           </>
         )}
+
+        
+            
 
       </div>
     </div>

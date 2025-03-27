@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 const steps = [
-  { id: 1, name: 'Monthly Mortgage' },
-  { id: 2, name: 'S&P Investing' },
-];
+    { id: 1, name: 'Monthly Mortgage', path: '/' },
+    { id: 2, name: 'S&P Investing', path: '/invest' },
+  ];
 
 export default function ProgressTracker({ currentStep }) {
     
@@ -16,23 +17,39 @@ export default function ProgressTracker({ currentStep }) {
 
         return (
           <div key={step.id} className="flex items-center">
-            <div
-              className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm
-                ${isCompleted ? 'bg-gray-500 text-white' :
-                isActive ? 'bg-white text-black' :
-                'bg-gray-300 text-gray-600'}`}
+
+        <div
+        className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm border-2
+            ${
+            isCompleted
+                ? 'bg-transparent text-white border-gray-300'
+                : isActive
+                ? 'bg-white text-black border-white'
+                : 'bg-transparent text-gray-300 border-gray-300'
+            }`}
+        >
+        {/* {isCompleted ? '✓' : step.id} */}
+            {step.id}
+        </div>
+
+
+            <Link
+              to={step.path}
+              className={`ml-2 mr-4 text-sm !text-white ${isActive ? 'font-medium' : 'text-gray-500 !underline'}`}
             >
-              {isCompleted ? '✓' : step.id}
-            </div>
-            <span className={`ml-2 mr-4 text-sm ${isActive ? 'text-white font-medium' : 'text-gray-500'}`}>
               {step.name}
-            </span>
+            </Link>
+            
             {index !== steps.length - 1 && (
               <div className="w-8 h-1 bg-gray-400 mx-2 rounded"></div>
             )}
+
           </div>
         );
       })}
+
     </div>
+
   );
 }
+
