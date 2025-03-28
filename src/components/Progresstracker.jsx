@@ -6,8 +6,8 @@ const steps = [
     { id: 2, name: 'S&P Investing', path: '/invest' },
   ];
 
-export default function ProgressTracker({ currentStep }) {
-    
+function ProgressTracker({ currentStep }) {
+
 
   return (
     <div className="flex justify-center items-center mb-8">
@@ -53,3 +53,4 @@ export default function ProgressTracker({ currentStep }) {
   );
 }
 
+export default ProgressTracker;

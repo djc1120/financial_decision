@@ -28,10 +28,18 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
         </label>
         <input
           type="text"
-          value={`${monthlyExtra.toFixed(2)} X 12 = ${monthlyExtra.toFixed(2) * 12}`}
-          className="read-only w-full p-3 mb-4 bg-gray-700 text-gray-400 rounded-lg focus:outline-none"
+          value={
+            monthlyExtra 
+            ? `${monthlyExtra.toFixed(2)} X 12 = ${monthlyExtra.toFixed(2) * 12}`
+            : ''
+          }
+          className={`read-only w-full p-3 mb-4 bg-gray-700 rounded-lg focus:outline-none
+            ${monthlyExtra > 0 ? 'text-gray-400' : 'text-red-400'}`
+          }
           disabled
         />
+
+
 
         <label className="block text-white font-medium">
           Annual Interest Rate (%)
@@ -40,7 +48,7 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
           type="number"
           value={rate}
           onChange={(e) => setRate(e.target.value)} // Updating rate via parent
-          className="w-full p-3 mb-3 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="w-full p-3 mb-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
         />
 
         <label className="block text-white font-medium">
@@ -49,7 +57,7 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
         <input
           type="number"
           value={years}
-          className="w-full p-3 mb-3 border border-gray-600 bg-gray-700 text-gray-400 rounded-lg read-only focus:outline-none"
+          className="w-full p-3 mb-3 bg-gray-700 text-gray-400 rounded-lg read-only focus:outline-none"
           disabled
         />
 
