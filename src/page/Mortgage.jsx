@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import ProgressTracker from '../components/ProgressTracker.jsx';
+import ProgressTracker from './ProgressTracker.jsx';
 
 
 export default function MortgageCalculatorForm() {

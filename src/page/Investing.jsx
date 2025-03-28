@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import CalculationModule from '../components/CalculationModule.jsx';
-import ProgressTracker from '../components/ProgressTracker.jsx';
+import ProgressTracker from './ProgressTracker.jsx';
 import { Link } from "react-router-dom";
 
 function Investing() {
