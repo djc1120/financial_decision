@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 const steps = [
     { id: 1, name: 'Monthly Mortgage', path: '/' },
-    { id: 2, name: 'S&P Investing', path: '/invest' },
+    { id: 2, name: 'Monthly Rent', path: '/rent' },
+    { id: 3, name: 'S&P Investing', path: '/invest' },
   ];
 
 function ProgressTracker({ currentStep }) {

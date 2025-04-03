@@ -34,8 +34,10 @@ input {
 
 
 input.read-only {
-  background-color: #131313; /* Light grey background */
-  /* color: rgb(173, 173, 173); */
+  background-color: transparent;
+  color: #d2d2d2;
+  padding: 0px;
+  margin-top: 0px;
 }
 
 

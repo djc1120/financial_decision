@@ -30,7 +30,7 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
           type="text"
           value={
             monthlyExtra 
-            ? `${monthlyExtra.toFixed(2)} X 12 = ${monthlyExtra.toFixed(2) * 12}`
+            ? `${monthlyExtra.toFixed(0)} X 12 = $${monthlyExtra.toFixed(0) * 12}`
             : ''
           }
           className={`read-only w-full p-3 mb-4 bg-gray-700 rounded-lg focus:outline-none
@@ -40,7 +40,6 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
         />
 
 
-
         <label className="block text-white font-medium">
           Annual Interest Rate (%)
         </label>
@@ -48,7 +47,8 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
           type="number"
           value={rate}
           onChange={(e) => setRate(e.target.value)} // Updating rate via parent
-          className="w-full p-3 mb-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="w-full p-3 mb-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 read-only"
+          disabled
         />
 
         <label className="block text-white font-medium">
@@ -66,8 +66,9 @@ function CalculationModule({ rate, setRate, monthlyExtra }) {
           className={`mt-4 bg-neutral-300 mt-2 w-full text-black py-2 px-4 rounded-md size-12
             ${monthlyExtra > 0
               ? 'animate-bounce ..'
-              : ''}`
-            }>
+              : ''
+            }`}
+        >
           Calculate
         </button>
 

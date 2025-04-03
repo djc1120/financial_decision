@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import ProgressTracker from './ProgressTracker.jsx';
 
 
-export default function MortgageCalculatorForm() {
+export default function Mortgage() {
 
     const navigate = useNavigate();
     const [form, setForm] = useState({
       homePrice: "",
       downPaymentPercent: "20",
       loanTerm: "30",
-      interestRate: "6.5",
+      mortgageRate: "6.5",
       mortgageInsurance: "100",
       propertyTaxPercent: "0.53",
       homeInsurance: "120",
@@ -28,12 +28,12 @@ export default function MortgageCalculatorForm() {
       const homePrice = parseFloat(form.homePrice);
       const downPayment = (parseFloat(form.downPaymentPercent) / 100) * homePrice;
       const loanAmount = homePrice - downPayment;
-      const monthlyInterest = parseFloat(form.interestRate) / 100 / 12;
+      const monthlyMortgageInterest = parseFloat(form.mortgageRate) / 100 / 12;
       const numberOfPayments = parseInt(form.loanTerm) * 12;
   
       const monthlyPrincipalAndInterest =
-        (loanAmount * monthlyInterest) /
-        (1 - Math.pow(1 + monthlyInterest, -numberOfPayments));
+        (loanAmount * monthlyMortgageInterest) /
+        (1 - Math.pow(1 + monthlyMortgageInterest, -numberOfPayments));
   
       const propertyTaxes = ((parseFloat(form.propertyTaxPercent) / 100) * homePrice) / 12;
   
@@ -49,10 +49,13 @@ export default function MortgageCalculatorForm() {
     };
   
     const handleNext = () => {
-      navigate('/invest', {
+      navigate('/rent', {
         state: {
           monthlyMortgage: parseFloat(monthlyPayment),
           loanTerm: parseInt(form.loanTerm),
+          housePrice: parseFloat(form.homePrice),
+          monthlyMortgageInterest: parseFloat(form.mortgageRate/1200),
+          downPaymentPercent: parseFloat(form.downPaymentPercent),
         },
       });
     };
@@ -62,83 +65,65 @@ export default function MortgageCalculatorForm() {
       <ProgressTracker currentStep={1} />
 
       <div className="w-[400px] mx-auto mt-8 p-6 bg-black rounded-xl shadow-md text-white">
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Mortgage Calculator</h2>
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold">Mortgage Calculator</h2>
 
-        {[
-          { label: "Home Price", name: "homePrice", placeholder: "Enter house price" },
-          { label: "Down Payment (%)", name: "downPaymentPercent", placeholder: "20" },
-          { label: "Loan Term (years)", name: "loanTerm", placeholder: "30000" },
-          { label: "Interest Rate (%)", name: "interestRate", placeholder: "6.5" },
-          { label: "Mortgage Insurance (monthly)", name: "mortgageInsurance", placeholder: "100" },
-          { label: "Property Tax (%)", name: "propertyTaxPercent", placeholder: "0.53" },
-          { label: "Home Insurance (monthly)", name: "homeInsurance", placeholder: "120" },
-          { label: "HOA Fees (monthly)", name: "hoaFees", placeholder: "200" },
-          { label: "Utilities (monthly)", name: "utilities", placeholder: "300" },
-        ].map(({ label, name, placeholder }) => (
-          <div key={name} className="flex flex-col">
-            <label htmlFor={name} className="mb-1 font-medium">
-              {label}
-            </label>
-            <input
-              id={name}
-              name={name}
-              type="number"
-              value={form[name]}
-              onChange={handleChange}
-              placeholder={placeholder}
-              className="rounded-md text-white"
-            />
-          </div>
-        ))}
-
-
-        <button
-          onClick={calculatePayment}
-          className="mt-4 w-full bg-neutral-300 text-black py-2 px-4 rounded-md"
-        >
-          {monthlyPayment ? "Re-calculate" : "Calculate"}
-        </button>
-
-        {monthlyPayment && (
-          <>
-            <div className="mt-4 text-xs">
-              Estimated Monthly Payment:
+          {[
+            { label: "Home Price", name: "homePrice", placeholder: "Enter house price" },
+            { label: "Down Payment (%)", name: "downPaymentPercent", placeholder: "20" },
+            { label: "Loan Term (years)", name: "loanTerm", placeholder: "30000" },
+            { label: "Interest Rate (%)", name: "mortgageRate", placeholder: "6.5" },
+            { label: "Mortgage Insurance (monthly)", name: "mortgageInsurance", placeholder: "100" },
+            { label: "Property Tax (%)", name: "propertyTaxPercent", placeholder: "0.53" },
+            { label: "Home Insurance (monthly)", name: "homeInsurance", placeholder: "120" },
+            { label: "HOA Fees (monthly)", name: "hoaFees", placeholder: "200" },
+            { label: "Utilities (monthly)", name: "utilities", placeholder: "300" },
+          ].map(({ label, name, placeholder }) => (
+            <div key={name} className="flex flex-col">
+              <label htmlFor={name} className="mb-1 font-medium">
+                {label}
+              </label>
+              <input
+                id={name}
+                name={name}
+                type="number"
+                value={form[name]}
+                onChange={handleChange}
+                placeholder={placeholder}
+                className="rounded-md text-white"
+              />
             </div>
-            <div className="text-xl font-bold text-white">
-            💰 {monthlyPayment}
-            </div>
-            <br/>
-            <button
-              onClick={handleNext}
-              className="bg-neutral-300 mt-2 w-full text-black py-2 px-4 rounded-md size-12 animate-bounce ..."
-            >
-              Next: Compare with S&P Investment
-            </button>
-          </>
-        )}
-
-        {!monthlyPayment && (
-          <>
-            <div className="mt-4 text-xs font-semibold">
-              Estimated Monthly Payment:
-            </div>
-            <div className="mt-4 text-lg font-semibold text-white">
-                ??
-            </div>
-            <button
-              onClick={handleNext}
-              className="mt-2 w-full text-white py-2 px-4 rounded-md border-1 border-neutral-300"
-            >
-              I know my monthly mortgage
-            </button>
-          </>
-        )}
-
-        
-            
+          ))}
 
       </div>
+
+      <button
+        onClick={calculatePayment}
+        className={`mt-8 w-full py-2 px-4 rounded-md
+                  ${monthlyPayment
+                  ? `text-white border-1 border-neutral-300`
+                  : 'text-black bg-neutral-300'
+                  }`}
+      >
+        {monthlyPayment ? "Re-calculate" : "Calculate"}
+      </button>
+
+      {monthlyPayment && (
+        <>
+          <div className="mt-8 text-xs text-left">
+            Estimated Monthly Payment
+          </div>
+          <div className="pt-2 text-xl font-bold text-gray-200 text-left">
+            💰 {monthlyPayment}
+          </div>
+          <br/>
+          <button onClick={handleNext} className="text-black bg-neutral-300 mt-6 w-full px-4 rounded-md">
+            Continue
+          </button>
+        </>
+      )}
+
+      
     </div>
 
     </div>
