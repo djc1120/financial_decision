@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
-import ComparisonChart from '../components/ComparisonChart';
+// import ComparisonChart from '../components/ComparisonChart';
 import HomeEquityChart from '../components/HomeEquityChart';
+import ProgressTracker from './ProgressTracker.jsx';
 
 const Compare = () => {
   const location = useLocation();
@@ -43,7 +44,8 @@ const Compare = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-white text-xl mb-4">Compare: Home vs. S&P Investment</h1>
+        <ProgressTracker currentStep={3} />
+
       {/* <ComparisonChart 
         monthlyMortgage={monthlyMortgage}
         housePrice={housePrice}

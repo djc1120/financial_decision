@@ -69,10 +69,13 @@ function HomeEquityChart({
 
       // S&P investment calculation
       const annualContribution = monthlyExtra * 12;
-      let spTotal = 0;
-      for (let y = 1; y <= year; y++) {
-        spTotal += annualContribution * ((1 + r) ** (year - y));
-      }
+        let spTotal = 0;
+
+        for (let y = 1; y <= year; y++) {
+        const isFirstYear = y === 1;
+        const contribution = annualContribution + (isFirstYear ? 80000 : 0);
+        spTotal += contribution * ((1 + r) ** (year - y));
+        }
 
       equityTable.push({
         year,
@@ -98,7 +101,7 @@ function HomeEquityChart({
     <div className="max-w-xl mx-auto rounded-xl">
     {/* <div className="max-w-xl mx-auto rounded-xl bg-white p-6 shadow-lg"> */}
       <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-        30-Year Home Equity and S&P Investment Comparison
+        Home Equity Vs. S&P Investment
       </h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={mergedData}>
@@ -138,10 +141,8 @@ function HomeEquityChart({
           />
         </LineChart>
       </ResponsiveContainer>
-      <p className="mt-2 text-sm text-gray-600">
-        Home Equity = Home Value – Remaining Loan Balance. 
-        S&P Investment assumes monthly contributions compounded annually.
-        Displayed at 5-year intervals from purchase to year 30.
+      <p className="mt-2 text-sm text-gray-500">
+        S&P Investment: assuming contributing monthly extra (monthly mortgage - rent)
       </p>
     </div>
   );

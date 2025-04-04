@@ -16,13 +16,28 @@ export default function Mortgage() {
       homeInsurance: "120",
       hoaFees: "200",
       utilities: "300",
+      repairCost: "",
     });
     const [monthlyPayment, setMonthlyPayment] = useState(null);
   
     const handleChange = (e) => {
       const { name, value } = e.target;
-      setForm((prev) => ({ ...prev, [name]: value }));
+    
+      // If the homePrice changes, auto-calculate repairCost
+      if (name === "homePrice") {
+        const homePrice = parseFloat(value) || 0;
+        const repairCost = (homePrice * 0.01) / 12;
+    
+        setForm((prev) => ({
+          ...prev,
+          homePrice: value,
+          repairCost: repairCost.toFixed(2),
+        }));
+      } else {
+        setForm((prev) => ({ ...prev, [name]: value }));
+      }
     };
+    
   
     const calculatePayment = () => {
       const homePrice = parseFloat(form.homePrice);
@@ -30,6 +45,7 @@ export default function Mortgage() {
       const loanAmount = homePrice - downPayment;
       const monthlyMortgageInterest = parseFloat(form.mortgageRate) / 100 / 12;
       const numberOfPayments = parseInt(form.loanTerm) * 12;
+      const repairCost = homePrice * 0.01 / 12;
   
       const monthlyPrincipalAndInterest =
         (loanAmount * monthlyMortgageInterest) /
@@ -43,7 +59,8 @@ export default function Mortgage() {
         propertyTaxes +
         parseFloat(form.homeInsurance || 0) +
         parseFloat(form.hoaFees || 0) +
-        parseFloat(form.utilities || 0);
+        parseFloat(form.utilities || 0) +
+        parseFloat(form.repairCost || 0);
   
       setMonthlyPayment(total.toFixed(2));
     };
@@ -78,6 +95,7 @@ export default function Mortgage() {
             { label: "Home Insurance (monthly)", name: "homeInsurance", placeholder: "120" },
             { label: "HOA Fees (monthly)", name: "hoaFees", placeholder: "200" },
             { label: "Utilities (monthly)", name: "utilities", placeholder: "300" },
+            { label: "Anticipated repair cost (monthly)", name: "repairCost", placeholder: "0.08% house price" },
           ].map(({ label, name, placeholder }) => (
             <div key={name} className="flex flex-col">
               <label htmlFor={name} className="mb-1 font-medium">

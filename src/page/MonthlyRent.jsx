@@ -28,7 +28,16 @@ export default function MonthlyRent() {
         : 0;
 
 
-console.log(loanTerm);
+
+    if (
+        !monthlyMortgage ||
+        !loanTerm ||
+        !housePrice ||
+        !monthlyMortgageInterest ||
+        !downPaymentPercent
+        ) {
+        return <div className="text-white">Missing or invalid data. Please go back and recalculate.</div>;
+        }
 
     return (
         <div>
