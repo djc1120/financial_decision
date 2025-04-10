@@ -1,44 +1,57 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import ProgressTracker from './ProgressTracker.jsx';
+import { useFormData } from '../context/FormContext';
+import { useEffect } from 'react';
 
 
 export default function Mortgage() {
 
     const navigate = useNavigate();
+    const { formData, setFormData } = useFormData()
+
     const [form, setForm] = useState({
-      homePrice: "",
-      downPaymentPercent: "20",
-      loanTerm: "30",
-      mortgageRate: "6.5",
-      mortgageInsurance: "100",
-      propertyTaxPercent: "0.53",
-      homeInsurance: "120",
-      hoaFees: "200",
-      utilities: "300",
-      repairCost: "",
+      homePrice: formData.homePrice || "",
+      downPaymentPercent: formData.downPaymentPercent || "20",
+      loanTerm: formData.loanTerm || "30",
+      mortgageRate: formData.mortgageRate || "6.5",
+      mortgageInsurance: formData.mortgageInsurance || "100",
+      propertyTaxPercent: formData.propertyTaxPercent || "0.53",
+      homeInsurance: formData.homeInsurance || "120",
+      hoaFees: formData.hoaFees || "200",
+      utilities: formData.utilities || "300",
+      repairCost: formData.repairCost || "",
     });
+
     const [monthlyPayment, setMonthlyPayment] = useState(null);
-  
+    const [showError, setShowError] = useState(false);
+
     const handleChange = (e) => {
       const { name, value } = e.target;
     
-      // If the homePrice changes, auto-calculate repairCost
       if (name === "homePrice") {
         const homePrice = parseFloat(value) || 0;
         const repairCost = (homePrice * 0.01) / 12;
     
-        setForm((prev) => ({
-          ...prev,
+        const updatedForm = {
+          ...form,
           homePrice: value,
           repairCost: repairCost.toFixed(2),
-        }));
+        };
+    
+        setForm(updatedForm);
+        setFormData((prev) => ({ ...prev, ...updatedForm }));
       } else {
-        setForm((prev) => ({ ...prev, [name]: value }));
+        const updatedForm = {
+          ...form,
+          [name]: value,
+        };
+    
+        setForm(updatedForm);
+        setFormData((prev) => ({ ...prev, ...updatedForm }));
       }
     };
     
-  
     const calculatePayment = () => {
       const homePrice = parseFloat(form.homePrice);
       const downPayment = (parseFloat(form.downPaymentPercent) / 100) * homePrice;
@@ -64,19 +77,40 @@ export default function Mortgage() {
   
       setMonthlyPayment(total.toFixed(2));
     };
+
+    useEffect(() => {
+      if (form.homePrice) {
+        calculatePayment();
+      }
+    }, [form]);
   
+
+
     const handleNext = () => {
-      navigate('/rent', {
-        state: {
-          monthlyMortgage: parseFloat(monthlyPayment),
-          loanTerm: parseInt(form.loanTerm),
-          housePrice: parseFloat(form.homePrice),
-          monthlyMortgageInterest: parseFloat(form.mortgageRate/1200),
-          downPaymentPercent: parseFloat(form.downPaymentPercent),
-        },
-      });
+      const monthlyMortgageInterest = parseFloat(form.mortgageRate) / 1200;
+      setFormData((prev) => ({
+        ...prev,
+        ...form, // spread the current form values
+        monthlyMortgage: parseFloat(monthlyPayment),
+        monthlyMortgageInterest,
+        loanTerm: parseInt(form.loanTerm), // override to ensure number type
+        downPaymentPercent: parseFloat(form.downPaymentPercent), // override as number
+        housePrice: parseFloat(form.homePrice),
+      }));
+    
+      navigate('/rent');
     };
 
+    const errorMessage = () => {
+      return (
+        <p>Enter home price</p>
+      )
+      
+    }
+
+    
+    
+    
   return (
     <div>
       <ProgressTracker currentStep={1} />
@@ -113,37 +147,52 @@ export default function Mortgage() {
             </div>
           ))}
 
-      </div>
+        </div>
 
-      <button
-        onClick={calculatePayment}
-        className={`mt-8 w-full py-2 px-4 rounded-md
-                  ${monthlyPayment
-                  ? `text-white border-1 border-neutral-300`
-                  : 'text-black bg-neutral-300'
-                  }`}
-      >
-        {monthlyPayment ? "Re-calculate" : "Calculate"}
-      </button>
+          {/* calculatePayment() */}
+        {/* <button
+          onClick={calculatePayment}
+          className={`mt-8 w-full py-2 px-4 rounded-md
+                    ${monthlyPayment
+                    ? `text-white border-1 border-neutral-300`
+                    : 'text-black bg-neutral-300'
+                    }`}
+        >
+          {monthlyPayment ? "Re-calculate" : "Calculate"}
+        </button> */}
 
-      {monthlyPayment && (
-        <>
-          <div className="mt-8 text-xs text-left">
-            Estimated Monthly Payment
-          </div>
-          <div className="pt-2 text-xl font-bold text-gray-200 text-left">
-            💰 {monthlyPayment}
-          </div>
-          <br/>
-          <button onClick={handleNext} className="text-black bg-neutral-300 mt-6 w-full px-4 rounded-md">
-            Continue
-          </button>
-        </>
-      )}
+        {form.homePrice && (
+          <>
+            <div className="mt-8 text-xs text-left">
+              Estimated Monthly Payment
+            </div>
+            <div className="pt-2 text-xl font-bold text-gray-200 text-left">
+              💰 {monthlyPayment}
+            </div>
+            <br/>
+          </>
+        )}
 
+
+        {showError && (
+          <p className="pt-8 text-red-500 mt-2 text-sm">Please enter a home price.</p>
+        )}
+
+        <button 
+          className="text-black bg-neutral-300 mt-6 w-full px-4 rounded-md"
+          onClick={() => {
+            if (form.homePrice) {
+              handleNext();
+            } else {
+              setShowError(true);
+            }
+          }}
+        >
+          Continue
+        </button>
       
-    </div>
-
+        
+      </div>
     </div>
   );
 }

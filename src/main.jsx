@@ -5,11 +5,14 @@ import './css/App.css'
 import './css/Style.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom';
+import { FormProvider } from './context/FormContext';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <FormProvider>
+        <App />
+      </FormProvider>
     </BrowserRouter>
   </StrictMode>,
 )

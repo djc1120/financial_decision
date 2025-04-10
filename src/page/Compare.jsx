@@ -2,31 +2,22 @@ import { useLocation } from 'react-router-dom';
 // import ComparisonChart from '../components/ComparisonChart';
 import HomeEquityChart from '../components/HomeEquityChart';
 import ProgressTracker from './ProgressTracker.jsx';
+import { useFormData } from '../context/FormContext';
 
 const Compare = () => {
-  const location = useLocation();
-  const {
-    monthlyMortgage,
-    loanTerm,
-    rent,
-    housePrice,
-    monthlyExtra,
-    monthlyMortgageInterest,
-    downPaymentPercent,
-    annualHouseAppreciationRate,
-  } = location.state || {};
+    const { formData } = useFormData();
 
-//   function Compare({
-//     const location = useLocation();
-//     monthlyMortgage,
-//     loanTerm,
-//     rent,
-//     housePrice,
-//     monthlyExtra,
-//     monthlyMortgageInterest,
-//     downPaymentPercent,
-//     annualHouseAppreciationRate,
-//   } = location.state || {}){
+    const {
+      monthlyMortgage,
+      loanTerm,
+      rent,
+      housePrice,
+      monthlyExtra,
+      monthlyMortgageInterest,
+      downPaymentPercent,
+      annualHouseAppreciationRate,
+    } = formData;
+
 
   if (
     !monthlyMortgage ||

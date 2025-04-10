@@ -55,27 +55,35 @@ function HomeEquityChart({
     for (let year = 0; year <= loanTerm; year += 5) {
       let houseValue = housePrice * (1 + annualHouseAppreciationRate) ** year;
 
-      // Simulate payments for this year range
-      const months = Math.min((year * 12), totalMonths);
-
-      let equity = downPayment;
-      let balance = loanAmount;
-      for (let i = 0; i < months; i++) {
-        const interestPayment = balance * monthlyMortgageInterest;
-        const monthlyPrincipal = monthlyMortgage - interestPayment;
-        equity += monthlyPrincipal;
-        balance -= monthlyPrincipal;
-      }
-
       // S&P investment calculation
-      const annualContribution = monthlyExtra * 12;
-        let spTotal = 0;
+    //   const annualContribution = monthlyExtra * 12;
+    //     let spTotal = 0;
 
-        for (let y = 1; y <= year; y++) {
-        const isFirstYear = y === 1;
-        const contribution = annualContribution + (isFirstYear ? 80000 : 0);
-        spTotal += contribution * ((1 + r) ** (year - y));
+    //     for (let y = 0; y <= year; y++) {
+    //     const isInitialYear = y === 0;
+    //     const contribution = isInitialYear ? downPayment : annualContribution
+    //     spTotal += contribution * ((1 + r) ** (year - y));
+    //     }
+
+
+
+        const monthlyRate = r / 12;
+        const months = year * 12;
+        let spTotal1 = 0;
+        let spTotal2 = 0;
+
+        // Also add the down payment if year > 0
+
+        spTotal1 = downPayment * Math.pow(1 + r, year);
+
+
+        for (let m = 2; m <= months; m++) {
+        const contribution = monthlyExtra;
+        spTotal2 += contribution * Math.pow(1 + monthlyRate, months - m);
         }
+
+        let spTotal = spTotal1 + spTotal2;
+
 
       equityTable.push({
         year,
