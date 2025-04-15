@@ -43,8 +43,17 @@ export default function MonthlyRent() {
         !monthlyMortgageInterest ||
         !downPaymentPercent
         ) {
-        return <div className="text-white">Missing or invalid data. Please go back and recalculate.</div>;
-        }
+            return (
+                <>
+                    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+                        <ProgressTracker currentStep={2} />
+                    </div>
+                    <div className="text-white">
+                        Missing or invalid data. Please go back and recalculate.
+                    </div>
+                </>
+              );
+            }
 
     
         const handleNext = () => {
@@ -58,10 +67,12 @@ export default function MonthlyRent() {
             navigate('/compare');
           };
 
-          console.log("Monthly Extra being invested:", monthlyExtra);
+          
     return (
         <div>
-            <ProgressTracker currentStep={2} />
+            <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+                <ProgressTracker currentStep={2} />
+            </div>
             <div className="w-[400px] mx-auto mt-8 p-6 bg-black rounded-xl shadow-md">
 
                 <label className="block font-medium mb-2">Current monthly rent</label>

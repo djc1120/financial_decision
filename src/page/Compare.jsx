@@ -29,13 +29,24 @@ const Compare = () => {
     !downPaymentPercent ||
     !annualHouseAppreciationRate
   ) {
-    return <div className="text-white">Missing or invalid data. Please go back and recalculate.</div>;
+    return (
+        <>
+            <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+                <ProgressTracker currentStep={3} />
+            </div>
+            <div className="text-white">
+                Missing or invalid data. Please go back and recalculate.
+            </div>
+        </>
+      );
   }
 
 
   return (
     <div className="p-4">
-        <ProgressTracker currentStep={3} />
+        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+            <ProgressTracker currentStep={3} />
+        </div>
 
       {/* <ComparisonChart 
         monthlyMortgage={monthlyMortgage}

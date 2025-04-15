@@ -113,7 +113,9 @@ export default function Mortgage() {
     
   return (
     <div>
-      <ProgressTracker currentStep={1} />
+      <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+          <ProgressTracker currentStep={1} />
+      </div>
 
       <div className="w-[400px] mx-auto mt-8 p-6 bg-black rounded-xl shadow-md text-white">
         <div className="space-y-4">
