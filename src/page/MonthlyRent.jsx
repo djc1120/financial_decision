@@ -69,11 +69,11 @@ export default function MonthlyRent() {
 
           
     return (
-        <div>
-            <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-screen p-8">
+            <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 pt-16 bg-[#272727]">
                 <ProgressTracker currentStep={2} />
             </div>
-            <div className="w-[400px] mx-auto mt-8 p-6 bg-black rounded-xl shadow-md">
+            <div className="max-w-md mx-auto mt-32 p-6 bg-black rounded-xl shadow-md text-white">
 
                 <label className="block font-medium mb-2">Current monthly rent</label>
                 <input

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ProgressTracker from './ProgressTracker.jsx';
 import { useFormData } from '../context/FormContext';
 import { useEffect } from 'react';
+import '../css/index.css';
 
 
 export default function Mortgage() {
@@ -112,12 +113,13 @@ export default function Mortgage() {
     
     
   return (
-    <div>
-      <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-screen p-8">
+      <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 pt-16 bg-[#272727]">
           <ProgressTracker currentStep={1} />
       </div>
 
-      <div className="w-[400px] mx-auto mt-8 p-6 bg-black rounded-xl shadow-md text-white">
+      <div className="max-w-md mx-auto mt-32 p-6 bg-black rounded-xl shadow-md text-white">
+
         <div className="space-y-4">
           <h2 className="text-2xl font-bold">Mortgage Calculator</h2>
 
@@ -151,7 +153,6 @@ export default function Mortgage() {
 
         </div>
 
-          {/* calculatePayment() */}
         {/* <button
           onClick={calculatePayment}
           className={`mt-8 w-full py-2 px-4 rounded-md

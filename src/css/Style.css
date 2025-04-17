@@ -1,4 +1,3 @@
-@import "tailwindcss";
 
 .container {
   display: inline-block; /* Makes the container wrap its content */
@@ -22,7 +21,7 @@ label {
 
 
 input {
-  width: flex; /* Shrinks to fit content instead of stretching */
+  width: flex;
   padding: 5px;
   margin-top: 5px;
   display: block;

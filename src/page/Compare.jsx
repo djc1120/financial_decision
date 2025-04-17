@@ -31,7 +31,7 @@ const Compare = () => {
   ) {
     return (
         <>
-            <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+            <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 pt-16 bg-[#272727]">
                 <ProgressTracker currentStep={3} />
             </div>
             <div className="text-white">
@@ -44,7 +44,7 @@ const Compare = () => {
 
   return (
     <div className="p-4">
-        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-16">
+        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 pt-16 bg-[#272727]">
             <ProgressTracker currentStep={3} />
         </div>
 

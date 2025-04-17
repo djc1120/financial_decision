@@ -20,7 +20,7 @@ function ProgressTracker({ currentStep }) {
           <div key={step.id} className="flex items-center">
 
         <div
-        className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm border-2
+        className={`w-8 h-8 min-w-8 min-h-8 flex items-center justify-center rounded-full font-bold text-sm border-2
             ${
             isCompleted
                 ? 'bg-transparent text-white border-gray-300'
