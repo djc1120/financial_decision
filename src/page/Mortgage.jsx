@@ -113,12 +113,13 @@ export default function Mortgage() {
     
     
   return (
-    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-screen p-8">
+    <div className="flex flex-col p-8">
+      
       <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 pt-16 bg-[#272727]">
           <ProgressTracker currentStep={1} />
       </div>
 
-      <div className="max-w-md mx-auto mt-32 p-6 bg-black rounded-xl shadow-md text-white">
+      <div className="sm:w-screen max-w-md mt-32 p-6 bg-black rounded-xl shadow-md text-white">
 
         <div className="space-y-4">
           <h2 className="text-2xl font-bold">Mortgage Calculator</h2>

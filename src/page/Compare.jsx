@@ -30,21 +30,21 @@ const Compare = () => {
     !annualHouseAppreciationRate
   ) {
     return (
-        <>
+        <div className="flex flex-col gap-y-4 p-8">
             <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 pt-16 bg-[#272727]">
                 <ProgressTracker currentStep={3} />
             </div>
             <div className="text-white">
-                Missing or invalid data. Please go back and recalculate.
+                You need to complete previous step.
             </div>
-        </>
+        </div>
       );
   }
 
 
   return (
-    <div className="p-4">
-        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 pt-16 bg-[#272727]">
+    <div className="flex flex-col gap-y-4 p-8">
+        <div className="w-screen fixed top-0 left-1/2 transform -translate-x-1/2 z-50 pt-16 bg-[#272727]">
             <ProgressTracker currentStep={3} />
         </div>
 
